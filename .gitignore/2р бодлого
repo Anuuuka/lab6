@@ -1,0 +1,221 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define len 1000
+#include <time.h>
+int HIT(int max,int mas[], int n)
+{
+    int i;
+     max = mas[0];
+        for(i=0; i<n; i++)
+        {
+            if(mas[i]>mas[i-1] && mas[i]>max)
+                    max=mas[i];
+        }
+    return max;
+}
+void sort(int mas[],int n)
+{
+    int i, j, b;
+    for(j=0; j<n; j++)
+        for(i=j; i<n; i++)
+          if(mas[j]>mas[i])
+          {
+              b=mas[j];
+              mas[j]=mas[i];
+              mas[i]=b;
+          }
+}
+void ust( int mas[], int n)
+{
+    int i;
+     for(i=0; i<n; i++)
+        {
+            if(mas[i]>0 && mas[i]<10)
+            {
+                mas[i]=0;
+            }
+            else{
+                mas[i]=mas[i];
+                }
+        }
+}
+void new_mas(int mas[],int x[], int n)
+{
+    int i,d,d1,c,k;
+     for(i=0; i<n; i++)
+        {
+            printf(" mas[%d]=%d \n",i+1, mas[i]);
+            c=mas[i];
+            d1=0;
+            printf(" Simple multipliers: ");
+            for(d=1; d<=c/2; d++)
+                   {
+                       k=c%d;
+                       if(k==0)
+                       {
+                           d1=d1+d;
+                           x[i]=d1;
+                           printf(" %d ", d);
+                       }
+                       else{
+                        d1=d1;
+                        x[i]=d1;
+                            }
+                   }
+            printf("sum =");
+            printf(" %d ", d1);
+            printf("\n");
+            if(d1==c)
+                {
+                    printf("Perfect number : ");
+                   // printf(" %d ", c);
+                }
+            printf("\n");
+        }
+}
+int ust_mas(int mas[], int n)
+{
+    int i, m=0;
+    for(i=0; i<n; i++)
+                {
+                    if(mas[i]==0)
+                    {
+                        printf("");
+                        m=m+1;
+                    }
+                    else{
+                             printf(" %d ", mas[i]);
+                             m=m;
+                        }
+                }
+    return m;
+}
+int new_mas_el(int mas[], int x[], int n)
+{
+    int i, j=0;
+    for(i=0; i<n; i++)
+            {
+                if(mas[i]==x[i])
+                    {
+                        printf("\tmas[%d]= %d\n",j+1, x[i]);
+                        j++;
+                    }
+                else{
+                    printf("");
+                    j=j;
+                    }
+            }
+    return j;
+}
+int main()
+{
+    char choice,s;
+    int i, n, x[len],max;
+    int mas[len];
+    int m,d,c,k;
+    int j=0;
+     printf("Enter choice( 1.Manually, 2. Randomly) ?: ");
+    scanf("%s", &choice);
+    switch(choice){
+    case '1':
+        printf("Enter array: ");
+    scanf("%d", &n);
+ // mas = (int *)malloc(n*sizeof(int));
+    for(i=0; i<n; i++)
+    {
+        printf("mas[%d]= ", i+1);
+        scanf("%d", &mas[i]);
+    }
+    getchar();
+        printf("\tOperation : \n");
+        printf("\t1.Find the last max \n");
+        printf("\t2.Perform direct selection sorting\n");
+        printf("\t3.Delete element between 1-10\n");
+        printf("\t4.Find perfect number \n");
+        printf("\tEnter your choice : ");
+        scanf("%s", &s);
+            switch(s){
+          case'1':
+                  max= HIT(max,mas,n);
+                  printf("max= %d\n", max);
+            break;
+          case'2':
+                  sort(mas, n);
+                  for(i=0; i<n; i++)
+                    {
+                        printf("\t %d ", mas[i]);
+                    }
+            break;
+          case'3':
+           ust(mas, n);
+           m=ust_mas(mas, n);
+                printf("\n");
+                if(m==0)
+                {
+                    printf("There is no such element");
+                }
+            break;
+          case '4' :
+              new_mas( mas,x, n);
+                printf("\t massiv B: \n");
+                j=new_mas_el(mas,x, n);
+                if(j==0){
+                        printf("\tEmpty");
+                        }
+            break;
+        }
+    break;
+    case '2' :
+        printf("Enter array: ");
+        scanf("%d", &n);
+    //mas= (int *)malloc(n*sizeof(int));
+        srand (time(0));
+        for(i=0; i<n; i++)
+            {
+                printf("mas[%d]=", i+1);
+                mas[i]=0+rand()%1000;
+                printf(" %d\n ", mas[i]);
+            }
+         printf("\tOperation : \n");
+        printf("\t1.Find the last max \n");
+        printf("\t2.Perform direct selection sorting\n");
+        printf("\t3.Delete element between 1-10\n");
+        printf("\t4.Find perfect number \n");
+        printf("\tEnter your choice : ");
+        scanf("%s", &s);
+        switch(s){
+          case'1':
+                  max= HIT(max,mas,n);
+                  printf("max= %d\n", max);
+            break;
+          case'2':
+                  sort(mas, n);
+                  for(i=0; i<n; i++)
+                  {
+                      printf("\t %d ", mas[i]);
+                  }
+            break;
+          case'3':
+           ust(mas, n);
+           m=ust_mas(mas, n);
+                printf("\n");
+                if(m==0)
+                {
+                    printf("There is no such element");
+                }
+            break;
+          case '4' :
+              new_mas( mas,x, n);
+                printf("\t massiv B: \n");
+                j=new_mas_el(mas,x, n);
+                if(j==0){
+                        printf("\tEmpty");
+                        }
+            break;
+        }
+        break;
+    default:
+    printf("Problem!!!");
+    }
+ return 0;
+}
